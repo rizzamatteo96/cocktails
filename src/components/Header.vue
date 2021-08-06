@@ -24,13 +24,13 @@ export default {
     right: 0;
     background-color: #ddddddcc;
     height: 100px;
-    line-height: 100px;
 
 
     .container{
       padding: 1rem 0;
 
       img{
+        margin-right: 1rem;
         border-radius: 50%;
         border: 3px solid black
       };
