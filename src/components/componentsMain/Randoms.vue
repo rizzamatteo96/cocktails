@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <h2 class="txt-center">Questo è il tuo cocktail casuale:</h2>
-    <div class="row jc-space-between ai-center mt-1">
+    <!-- titolo della sezione -->
+    <h2 class="sec-title txt-center">Questo è il tuo cocktail casuale:</h2>
+
+    <!-- inizio conenuto sezione -->
+    <div class="sec-content row jc-space-between ai-center mt-1">
       <!-- inizio sezione testo drink -->
       <div class="col-xs-12 col-md-6 drink-text">
 
@@ -41,11 +44,19 @@
       <!-- fine sezione testo drink -->
 
       <!-- inizio sezione foto drink -->
-      <div class="col-xs-12 col-md-6">
-        <img :src="random.strDrinkThumb" alt="test img">
-      </div>
+      <img :src="random.strDrinkThumb" alt="test img" class="col-xs-12 col-md-6 h-100">
       <!-- fine sezione foto drink -->
     </div>
+    <!-- fine contenuto sezione -->
+
+    <!-- inizio footer sezione -->
+    <div class="sec-footer">
+      <button @click="callRandom" class="reload-rand">
+        <i class="fas fa-sync-alt"></i>
+        <span class="txt-rel">Calrica un altro cocktail</span> 
+      </button>
+    </div>
+    <!-- fine footer sezione -->
 
   </div>
 </template>
@@ -95,77 +106,123 @@ export default {
 </script>
 
 <style lang="scss">
-  h2{
-    font-size: 3rem;
+  .sec-title,
+  .sec-footer{
+    height: 100px;
   }
 
-  .drink-text{
-    
-    & > *{
-      margin: 1rem 0;
-    }
-
-    h3{
-      font-size: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .light-bk{
-      color: #555;
+  .sec-content{
+    h2{
+      font-size: 3rem;
     }
   
-    .ingredients{
-      margin-left: 1rem;
-      display: inline-block;
-      vertical-align: text-top;
-
-      li::marker{
-        color: black;
-        font-size: 10px;
+    .drink-text{
+      
+      & > *{
+        margin: 1rem 0;
+      }
+  
+      h3{
+        font-size: 2rem;
+        margin-bottom: 3rem;
+      }
+      
+      .light-bk{
+        color: #555;
+      }
+    
+      .ingredients{
+        margin-left: 1rem;
+        display: inline-block;
+        vertical-align: text-top;
+  
+        li::marker{
+          color: black;
+          font-size: 10px;
+        }
+      }
+    
+      .video{
+        display: inline-block;
+        margin-top: 3rem;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        border: 2px solid black;
+        background-color: black;
+        overflow: hidden;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        position: relative;
+        white-space: nowrap;
+        animation-name: chiudiPulsante;
+        animation-duration: .2s;
+  
+        &:hover{
+          animation-name: apriPulsante;
+          animation-duration: .5s;
+          animation-fill-mode: forwards;
+          
+          .txt-yt{
+            display: inline;
+          }
+        }
+  
+        .txt-yt{
+          display: none;
+          overflow: hidden;
+          margin-left: 2rem;
+        }
       }
     }
   
-    .video{
-      display: inline-block;
-      margin-top: 3rem;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      border: 2px solid black;
-      background-color: black;
-      overflow: hidden;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      position: relative;
-      white-space: nowrap;
-      animation-name: chiudiPulsante;
-      animation-duration: .2s;
+    img{
+      height: 100%;
+      filter: grayscale(100%);
+      transition: filter .5s;
+  
+      &:hover{
+        filter: grayscale(0%);
+      }
+    }
+  }
+
+  .sec-footer{
+    text-align: center;
+
+    .reload-rand{
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: 2px solid black;
+    background-color: black;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    white-space: nowrap;
+    animation-name: chiudiPulsanteRel;
+    animation-duration: .2s;
 
       &:hover{
-        animation-name: apriPulsante;
+        animation-name: apriPulsanteRel;
         animation-duration: .5s;
         animation-fill-mode: forwards;
         
-        .txt-yt{
+        .txt-rel{
           display: inline;
         }
       }
 
-      .txt-yt{
+      .txt-rel{
         display: none;
         overflow: hidden;
         margin-left: 2rem;
       }
     }
-  }
 
-  img{
-    filter: grayscale(100%);
-    transition: filter .5s;
-
-    &:hover{
-      filter: grayscale(0%);
-    }
   }
 
   @keyframes apriPulsante {
@@ -177,7 +234,7 @@ export default {
     to{
       width: 62%;
       background-color: white;
-       color: black;
+        color: black;
     }
   }
 
@@ -185,7 +242,7 @@ export default {
     from{
       width: 62%;
       background-color: white;
-       color: black;
+        color: black;
     }
     to{
       width: 18%;
@@ -193,4 +250,31 @@ export default {
       color: white;
     }
   }
+
+  @keyframes apriPulsanteRel {
+    from{
+      width: 9%;
+      background-color: black;
+      color: white;
+    }
+    to{
+      width: 30%;
+      background-color: white;
+        color: black;
+    }
+  }
+
+  @keyframes chiudiPulsanteRel {
+    from{
+      width: 30%;
+      background-color: white;
+      color: black;
+    }
+    to{
+      width: 9%;
+      background-color: black;
+      color: white;
+    }
+  }
+  
 </style>
